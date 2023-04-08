@@ -1,0 +1,6 @@
+{
+	"appId": "io.ionic.starter",
+	"appName": "Dodane",
+	"webDir": "build",
+	"bundledWebRuntime": false
+}
