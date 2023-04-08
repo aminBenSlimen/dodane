@@ -8,6 +8,7 @@
     align-items: center;
     font-weight: bold;
     margin: 0 auto;
+    margin-top: calc(50vh - 265px);
   }
   
   .toggle-button.tracking {
