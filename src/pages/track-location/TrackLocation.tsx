@@ -72,7 +72,6 @@ const TrackLocation: React.FC = () => {
         setClosestDistance(distance);
       }
     });
-    playAlarm("30metersAlarm");
     if (!closestDistance) return;
     if (closestDistance <= 30) {
       

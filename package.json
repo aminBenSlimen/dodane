@@ -3,7 +3,7 @@
   "version": "0.0.1",
   "private": true,
   "dependencies": {
-    "@capacitor-community/native-audio": "^3.0.4",
+    "@capacitor-community/native-audio": "^4.0.0-0",
     "@capacitor/app": "4.1.1",
     "@capacitor/core": "4.7.3",
     "@capacitor/geolocation": "^4.1.0",
