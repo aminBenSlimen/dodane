@@ -8,7 +8,7 @@ import {
   IonToolbar,
 } from "@ionic/react";
 // import { NativeAudio } from "@capacitor-community/native-audio";
-import { Geolocation, Position } from "@capacitor/geolocation";
+import { Geolocation, Position, PositionOptions, WatchPositionCallback } from "@capacitor/geolocation";
 import "./TrackLocation.css";
 // import { Capacitor } from "@capacitor/core";
 const TrackLocation: React.FC = () => {
@@ -40,12 +40,14 @@ const TrackLocation: React.FC = () => {
     const newWatchId = await Geolocation.watchPosition(
       {},
       (position: Position | null, err: any) => {
+        console.log(position);
         
         if (!err && position) {
           setCurrentLocation({
             latitude: position.coords.latitude,
             longitude: position.coords.longitude,
           });
+          
           calculateClosestLocation(
             position.coords.latitude,
             position.coords.longitude
@@ -119,9 +121,6 @@ const TrackLocation: React.FC = () => {
       startTracking();
     }
   };
-  console.log(closestLocation);
-  
-
   return (
     <IonPage>
       <IonHeader>
@@ -146,7 +145,7 @@ const TrackLocation: React.FC = () => {
 
         {currentLocation && (
           <div>
-            <p>Closest saved location:</p>
+            <p>current location:</p>
             <p>
               Latitude: {currentLocation.latitude} Longitude:{" "}
               {currentLocation.longitude}
@@ -155,7 +154,7 @@ const TrackLocation: React.FC = () => {
         )}
         <br />
 
-        <p>Distance: {closestDistance} meters</p>
+        {currentLocation && closestLocation && <p>Distance: {closestDistance} meters</p>}
         <button
           className={`toggle-button ${watchId ? "tracking" : ""}`}
           onClick={toggleTracking}
