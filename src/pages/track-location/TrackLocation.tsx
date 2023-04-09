@@ -10,6 +10,7 @@ import {
 import { NativeAudio } from "@capacitor-community/native-audio";
 import { Geolocation, Position } from "@capacitor/geolocation";
 import "./TrackLocation.css";
+// import { Media } from "@ionic-native/media";
 import { Capacitor } from "@capacitor/core";
 const TrackLocation: React.FC = () => {
   const [closestLocation, setClosestLocation] = useState<{
@@ -58,7 +59,20 @@ const TrackLocation: React.FC = () => {
 
     setWatchId(newWatchId);
   };
+  // const playAlarm = (name: string) => {
+  //   console.log(name);
+    
+  //   const path = `public\\assets\\sounds\\${name}.mp3`;
+  //   const sound = Media.create(path);
+  //   sound.play({numberOfLoops:1,playAudioWhenScreenIsLocked:true})
+  //   // sound.onStatusUpdate.subscribe((status) => {
+  //   //   console.log(status);
+      
+  //   //   if (status === 4) sound.release();
+  //   // });
 
+  //   // return { sound };
+  // };
   const stopTracking = () => {
     if (watchId) {
       Geolocation.clearWatch({ id: watchId });
@@ -82,14 +96,22 @@ const TrackLocation: React.FC = () => {
         setClosestLocation(location);
         setClosestDistance(distance);
       }
+      
     });
-    if (!closestDistance) return;
-    if (closestDistance <= 30) {
+    // console.log(minDistance);
+    
+    // if (!closestDistance) return;
+    // console.log(closestDistance);
+    
+    if (minDistance <= 30) {
       console.log("it's 30");
-      playAlarm("30metersAlarm");
-    } else if (closestDistance <= 100) {
+      playAlarm("30Alarm");
+      
+    } else if (minDistance <= 1300) {
       console.log("it's 100");
-      playAlarm("100metersAlarm");
+      
+      playAlarm("100Alarm");
+      
     }
   };
 
