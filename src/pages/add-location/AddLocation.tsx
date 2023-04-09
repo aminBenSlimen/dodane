@@ -20,7 +20,8 @@ import { trash } from "ionicons/icons";
 const AddLocation: React.FC = () => {
   const saveCurrentLocation = async () => {
     try {
-      const position: Position = await Geolocation.getCurrentPosition();
+    
+      const position: Position = await Geolocation.getCurrentPosition({ enableHighAccuracy: true, timeout: 2000});
       const { latitude, longitude } = position.coords;
 
       const locations = JSON.parse(localStorage.getItem("locations") || "[]");
@@ -78,9 +79,7 @@ const AddLocation: React.FC = () => {
         <IonList>
           {locations.map((location, index) => (
             <IonItem key={index}>
-              <div>
-              {index} - &nbsp;
-              </div>
+              <div>{index} - &nbsp;</div>
 
               <IonLabel>
                 Latitude: {location.latitude}, Longitude: {location.longitude}

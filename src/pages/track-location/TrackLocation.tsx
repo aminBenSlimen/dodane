@@ -7,10 +7,10 @@ import {
   IonTitle,
   IonToolbar,
 } from "@ionic/react";
-// import { NativeAudio } from "@capacitor-community/native-audio";
-import { Geolocation, Position, PositionOptions, WatchPositionCallback } from "@capacitor/geolocation";
+import { NativeAudio } from "@capacitor-community/native-audio";
+import { Geolocation, Position } from "@capacitor/geolocation";
 import "./TrackLocation.css";
-// import { Capacitor } from "@capacitor/core";
+import { Capacitor } from "@capacitor/core";
 const TrackLocation: React.FC = () => {
   const [closestLocation, setClosestLocation] = useState<{
     latitude: number;
@@ -31,23 +31,23 @@ const TrackLocation: React.FC = () => {
     };
   }, [watchId]);
 
-  // const playAlarm = async (assetId: string) => {
-  //   if (Capacitor.isPluginAvailable("NativeAudio")) {
-  //     await NativeAudio.play({ assetId, time: 1 });
-  //   }
-  // };
+  const playAlarm = async (assetId: string) => {
+    if (Capacitor.isPluginAvailable("NativeAudio")) {
+      await NativeAudio.play({ assetId, time: 1 });
+    }
+  };
   const startTracking = async () => {
     const newWatchId = await Geolocation.watchPosition(
-      {},
+      { enableHighAccuracy: true, maximumAge: 2 },
       (position: Position | null, err: any) => {
         console.log(position);
-        
+
         if (!err && position) {
           setCurrentLocation({
             latitude: position.coords.latitude,
             longitude: position.coords.longitude,
           });
-          
+
           calculateClosestLocation(
             position.coords.latitude,
             position.coords.longitude
@@ -83,13 +83,14 @@ const TrackLocation: React.FC = () => {
         setClosestDistance(distance);
       }
     });
-    // if (!closestDistance) return;
-    // if (closestDistance <= 30) {
-
-    //   playAlarm("30metersAlarm");
-    // } else if (closestDistance <= 100) {
-    //   playAlarm("100metersAlarm");
-    // }
+    if (!closestDistance) return;
+    if (closestDistance <= 30) {
+      console.log("it's 30");
+      playAlarm("30metersAlarm");
+    } else if (closestDistance <= 100) {
+      console.log("it's 100");
+      playAlarm("100metersAlarm");
+    }
   };
 
   const getDistance = (
@@ -154,7 +155,9 @@ const TrackLocation: React.FC = () => {
         )}
         <br />
 
-        {currentLocation && closestLocation && <p>Distance: {closestDistance} meters</p>}
+        {currentLocation && closestLocation && (
+          <p>Distance: {closestDistance} meters</p>
+        )}
         <button
           className={`toggle-button ${watchId ? "tracking" : ""}`}
           onClick={toggleTracking}

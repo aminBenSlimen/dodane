@@ -35,11 +35,11 @@ const App: React.FC = () => {
     if (Capacitor.isPluginAvailable("NativeAudio")) {
       NativeAudio.preload({
         assetId: "100metersAlarm",
-        path: "assets/100Alarm.mp3",
+        assetPath: "100Alarm.mp3",
       });
       NativeAudio.preload({
         assetId: "30metersAlarm",
-        path: "assets/30Alarm.mp3",
+        assetPath: "30Alarm.mp3",
       });
     }
   }, []);
